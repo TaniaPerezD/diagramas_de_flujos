@@ -222,6 +222,21 @@ export default function Huevos() {
     setResultados({ resumenes, agregados, promedios });
   }
 
+  function onLimpiar() {
+    setNumSimulaciones(30);
+    setDias(10);
+    setLambdaPoisson(10);
+    setPvuh(1.0);
+    setPvup(5.0);
+    setPRotos(0.2);
+    setPAPollo(0.3);
+    setPVendido(0.5);
+    setPMuertePollo(0.2);
+    setPSobrevivePollo(0.8);
+    setResultados(null);
+    setError('');
+  }
+
   return (
     <div className="container">
       <header className="header">
@@ -365,6 +380,9 @@ export default function Huevos() {
 
               <button className="btn-simular" onClick={onSimular}>
                 Simular
+              </button>
+              <button className="btn-simular" onClick={onLimpiar}>
+                Limpiar
               </button>
 
               {error && (

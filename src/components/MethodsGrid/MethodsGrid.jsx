@@ -31,7 +31,7 @@ const items = [
 export default function MethodsGrid() {
   return (
     <section className="container" id="inicio" aria-label="Métodos de generación">
-      <h1 className="section-title">Generación de Números Aleatorios</h1>
+      <h1 className="section-title">Implementacion Diagramas de Flujo</h1>
       <p className="section-subtitle">
         Los números aleatorios son clave en simulaciones, criptografía y estadística.
         Estos son algunos métodos clásicos para generarlos.

@@ -9,15 +9,15 @@ export default function Header() {
         <div className={styles.row}>
           <div className={styles.brand}>
             <img src={logo} alt="logo" />
-            <span>Generador de Números Aleatorios</span>
+            <span>Implementacion Diagramas de Flujo</span>
           </div>
 
           <nav className={styles.nav}>
             <Link to="/inicio" className={styles.link}>Inicio</Link>
-            <Link to="/azucar" className={styles.link}>azucar</Link>
-            <Link to="/tienda" className={styles.link}>tienda</Link>
-            <Link to="/huevos" className={styles.link}>Huevos</Link>
-            <Link to="/multiplicativo" className={styles.link}>Multiplicativo</Link>
+            <Link to="/azucar" className={styles.link}>Agencia de azúcar</Link>
+            <Link to="/tienda" className={styles.link}>Llegada de clientes tienda</Link>
+            <Link to="/huevos" className={styles.link}>Gallina ponedora de huevos</Link>
+            <Link to="/dados" className={styles.link}>Lanzamiento de dados</Link>
           </nav>
         </div>
       </div>

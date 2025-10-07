@@ -1,36 +1,128 @@
 .header{
-  background: #280f3a;
-  position: sticky;
+  background: #f5f5f5;
+  background-image: 
+    radial-gradient(circle, #d0d0d0 1px, transparent 1px);
+  background-size: 8px 8px;
+  position: relative;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 20;
+  border-bottom: 3px solid #34495e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+.header::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #e74c3c;
+  opacity: 0.6;
+}
+
 .row{
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  padding: 3px 0;
+  padding: 12px 20px 12px 60px;
 }
+
 .brand{
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: #2c3e50;
   font-weight: 700;
-  letter-spacing: .2px;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
 }
-.brand img{ width: 28px; height: 28px; }
 
-.nav{ display: flex; gap: 18px; }
-.link{
-  color: #e5e7eb;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 8px 10px;
-  border-radius: 10px;
-  transition: .2s ease;
+.brand img{ 
+  width: 32px; 
+  height: 32px;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
 }
+
+.nav{ 
+  display: flex; 
+  gap: 8px;
+  margin-right: 10px;
+}
+
+.link{
+  color: #34495e;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 4px;
+  transition: .2s ease;
+  font-family: 'Courier New', monospace;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
 .link:hover{
-  background: rgba(255,255,255,.08);
-  color: #fff;
+  background: #fcf3cf;
+  color: #2c3e50;
+  border: 2px solid #3498db;
+  transform: translateY(-2px);
+  box-shadow: 2px 2px 0px #3498db;
+}
+
+.link:active{
+  transform: translateY(0px);
+  box-shadow: 1px 1px 0px #3498db;
+}
+
+/* Variante con efecto de marcador */
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #e67e22;
+  transition: .3s ease;
+  transform: translateX(-50%);
+}
+
+.link:hover::after {
+  width: 80%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header::before {
+    left: 20px;
+  }
+  
+  .row {
+    padding: 10px 15px 10px 35px;
+    flex-wrap: wrap;
+  }
+  
+  .nav {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .link {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .brand {
+    font-size: 1rem;
+  }
 }
