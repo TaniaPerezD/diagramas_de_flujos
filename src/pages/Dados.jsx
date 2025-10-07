@@ -54,12 +54,12 @@ export default function Dados() {
   return (
     <div className="container">
       <header className="header">
-        <h1>Simulación del Juego de Dados 🎲</h1>
+        <h1>Simulación del Juego de Dados</h1>
       </header>
 
       <div className="content">
         <div className="problema-section">
-          <h2 className="subtitulo">Análisis de Resultados del Juego</h2>
+          <h2 className="subtitulo">Análisis de los resultados</h2>
 
           <div className="columnas">
             {/* Columna Izquierda - Configuración */}

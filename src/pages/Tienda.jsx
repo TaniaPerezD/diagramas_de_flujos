@@ -126,17 +126,17 @@ export default function SimulacionEventos() {
   return (
     <div className="container">
       <header className="header">
-        <h1>Simulación de Eventos Discretos — Tienda</h1>
+        <h1>Simulación de Llegada de Clientes a una Tienda </h1>
       </header>
 
       <div className="content">
         <div className="problema-section">
-          <h2 className="subtitulo">Llegada de Clientes a una Tienda</h2>
+          <h2 className="subtitulo">Análisis de resultados</h2>
 
           <div className="columnas">
             <div className="columna-izquierda">
               <div className="card">
-                <h3>Parámetros de la Simulación</h3>
+                <h3>Configuración de la Simulación</h3>
 
                 <div className="input-group">
                   <label>Número de Simulaciones (días):</label>

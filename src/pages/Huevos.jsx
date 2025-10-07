@@ -240,11 +240,11 @@ export default function Huevos() {
   return (
     <div className="container">
       <header className="header">
-        <h1>Simulación de Producción de Huevos y Pollos</h1>
+        <h1>Simulación de la gallina ponedora de huevos</h1>
       </header>
 
       <main className="content problema-section">
-        <h2 className="subtitulo">Parámetros y Resultados</h2>
+        <h2 className="subtitulo">Análisis de los resultados</h2>
 
         <div className="columnas">
           {/* Columna izquierda: parámetros */}
@@ -404,109 +404,71 @@ export default function Huevos() {
             <div className="card">
               <h3>Resultados</h3>
 
-              {!resultados ? (
-                <div className="sin-datos">Aún no hay datos. Configura y presiona “Simular”.</div>
-              ) : (
-                <>
-                  {/* Resumen por simulación */}
-                  <div className="tabla-container" style={{ marginTop: 10 }}>
-                    <table className="tabla-resultados">
-                      <thead>
-                        <tr>
-                          <th>Sim</th>
-                          <th>Huevos prod.</th>
-                          <th>Rotos</th>
-                          <th>→ Pollos</th>
-                          <th>Vendidos</th>
-                          <th>Pollos vivos</th>
-                          <th>Pollos muertos</th>
-                          <th>Ingreso total</th>
-                          <th>Ingreso prom. día</th>
+              <div className="tabla-container" style={{ marginTop: 10 }}>
+                <table className="tabla-resultados">
+                  <thead>
+                    <tr>
+                      <th>Sim</th>
+                      <th>Huevos prod.</th>
+                      <th>Rotos</th>
+                      <th>→ Pollos</th>
+                      <th>Vendidos</th>
+                      <th>Pollos vivos</th>
+                      <th>Pollos muertos</th>
+                      <th>Ingreso total</th>
+                      <th>Ingreso prom. día</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {!resultados || resultados.resumenes.length === 0 ? (
+                      <tr>
+                        <td colSpan="9" className="sin-datos">Ejecuta la simulación para ver los resultados</td>
+                      </tr>
+                    ) : (
+                      resultados.resumenes.map((r) => (
+                        <tr key={r.idx}>
+                          <td>{r.idx}</td>
+                          <td>{r.THP}</td>
+                          <td>{r.THR}</td>
+                          <td>{r.THPO}</td>
+                          <td>{r.THH}</td>
+                          <td>{r.TPS}</td>
+                          <td>{r.TPM}</td>
+                          <td>Bs {formNum(r.ingresoTotal)}</td>
+                          <td>Bs {formNum(r.ingresoPromedioDia)}</td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {resultados.resumenes.map((r) => (
-                          <tr key={r.idx}>
-                            <td>{r.idx}</td>
-                            <td>{r.THP}</td>
-                            <td>{r.THR}</td>
-                            <td>{r.THPO}</td>
-                            <td>{r.THH}</td>
-                            <td>{r.TPS}</td>
-                            <td>{r.TPM}</td>
-                            <td>Bs {formNum(r.ingresoTotal)}</td>
-                            <td>Bs {formNum(r.ingresoPromedioDia)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
 
-                  {/* Agregados y promedios */}
-                  <div className="estadisticas" style={{ marginTop: 16 }}>
-                    <h4>Estadísticas del lote</h4>
-                    <div className="estadisticas-grid">
-                      <div className="stat-item">
-                        <span className="stat-label">Ingreso promedio por día</span>
-                        <span className="stat-value">Bs {formNum(resultados.promedios.ingresoPromedioDia)}</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Prom. huevos rotos / sim</span>
-                        <span className="stat-value">{formNum(resultados.promedios.THR, 0)}</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Prom. pollos muertos / sim</span>
-                        <span className="stat-value">{formNum(resultados.promedios.TPM, 0)}</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Prom. huevos vendidos / sim</span>
-                        <span className="stat-value">{formNum(resultados.promedios.THH, 0)}</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Prom. pollos vendidos / sim</span>
-                        <span className="stat-value">{formNum(resultados.promedios.TPS, 0)}</span>
-                      </div>
+              {resultados && resultados.resumenes.length > 0 && (
+                <div className="estadisticas" style={{ marginTop: 16 }}>
+                  <h4>Estadísticas del lote</h4>
+                  <div className="estadisticas-grid">
+                    <div className="stat-item">
+                      <span className="stat-label">Ingreso promedio por día</span>
+                      <span className="stat-value">Bs {formNum(resultados.promedios.ingresoPromedioDia)}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Prom. huevos rotos / sim</span>
+                      <span className="stat-value">{formNum(resultados.promedios.THR, 0)}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Prom. pollos muertos / sim</span>
+                      <span className="stat-value">{formNum(resultados.promedios.TPM, 0)}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Prom. huevos vendidos / sim</span>
+                      <span className="stat-value">{formNum(resultados.promedios.THH, 0)}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Prom. pollos vendidos / sim</span>
+                      <span className="stat-value">{formNum(resultados.promedios.TPS, 0)}</span>
                     </div>
                   </div>
-
-                  {/* Detalle de la última simulación para visualizar días */}
-                  {resultados.resumenes.length > 0 &&
-                    resultados.resumenes[resultados.resumenes.length - 1].detalle?.length > 0 && (
-                      <div style={{ marginTop: 20 }}>
-                    
-                        <div className="tabla-container">
-                          <table className="tabla-resultados">
-                            <thead>
-                              <tr>
-                                <th>Día</th>
-                                <th>Huevos</th>
-                                <th>Rotos</th>
-                                <th>→ Pollos</th>
-                                <th>Pollos vivos</th>
-                                <th>Pollos muertos</th>
-                                <th>Vendidos</th>
-                                <th>Ingreso día</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {resultados.resumenes[resultados.resumenes.length - 1].detalle.map((d) => (
-                                <tr key={d.dia}>
-                                  <td>{d.dia}</td>
-                                  <td>{d.huevosHoy}</td>
-                                  <td>{d.huevosRotosDia}</td>
-                                  <td>{d.huevosAPollosDia}</td>
-                                  <td>{d.pollosVivosDia}</td>
-                                  <td>{d.pollosMuertosDia}</td>
-                                  <td>{d.huevosVendDia}</td>
-                                  <td>Bs {formNum(d.ingresoDia)}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    )}
-                </>
+                </div>
               )}
             </div>
           </section>
