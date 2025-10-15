@@ -105,6 +105,12 @@ export default function TasaVariable() {
     return '';
   }
 
+  // -------------------- Limpiar --------------------
+  function limpiar() {
+    setResultados(null);
+    setError('');
+  }
+
   // -------------------- Simulación --------------------
   function simular() {
     const msg = validar();
@@ -313,6 +319,9 @@ export default function TasaVariable() {
               </div>
 
               <button className="btn-simular" onClick={simular}>Simular</button>
+              <button className="btn-simular btn-secundario" onClick={limpiar}>
+                    Limpiar
+                  </button>
 
               {error && (
                 <div style={{ marginTop: 12, color: '#b00020', fontWeight: 600 }}>
@@ -327,61 +336,66 @@ export default function TasaVariable() {
             <div className="card">
               <h3>Resultados</h3>
 
-              {!resultados ? (
-                <div className="sin-datos">Aún no hay datos. Configura y presiona “Simular”.</div>
-              ) : (
-                <>
-                  {/* Resumen por simulación */}
-                  <div className="tabla-container" style={{ marginTop: 10 }}>
-                    <table className="tabla-resultados">
-                      <thead>
-                        <tr>
-                          <th>Sim</th>
-                          <th className="num">Capital inicial</th>
-                          <th className="num">Capital final</th>
-                          <th className="num">Interés total</th>
-                          <th className="num">Tasa media aplicada</th>
-                          <th className="num">Ingreso prom./año</th>
+              <div
+                className="tabla-container"
+                style={{ marginTop: 10, maxHeight: '500px', overflowY: 'auto' }}
+              >
+                <table className="tabla-resultados">
+                  <thead>
+                    <tr>
+                      <th>N°</th>
+                      <th className="num">Capital inicial</th>
+                      <th className="num">Capital final</th>
+                      <th className="num">Interés total</th>
+                      <th className="num">Tasa media aplicada</th>
+                      <th className="num">Ingreso prom./año</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {!resultados ? (
+                      <tr>
+                        <td colSpan={6} className="sin-datos" style={{ textAlign: 'center' }}>
+                          Ejecuta la simulación para ver los resultados
+                        </td>
+                      </tr>
+                    ) : (
+                      resultados.filas.map((r) => (
+                        <tr key={r.sim}>
+                          <td>{r.sim}</td>
+                          <td className="num">Bs {fmt(r.capitalInicial)}</td>
+                          <td className="num">Bs {fmt(r.capitalFinal)}</td>
+                          <td className="num">Bs {fmt(r.interesTotal)}</td>
+                          <td className="num">{(r.tasaMediaAplicada * 100).toFixed(2)}%</td>
+                          <td className="num">Bs {fmt(r.ingresoPromAnio)}</td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {resultados.filas.map((r) => (
-                          <tr key={r.sim}>
-                            <td>{r.sim}</td>
-                            <td className="num">Bs {fmt(r.capitalInicial)}</td>
-                            <td className="num">Bs {fmt(r.capitalFinal)}</td>
-                            <td className="num">Bs {fmt(r.interesTotal)}</td>
-                            <td className="num">{(r.tasaMediaAplicada * 100).toFixed(2)}%</td>
-                            <td className="num">Bs {fmt(r.ingresoPromAnio)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
 
-                  {/* Estadísticas del lote */}
-                  <div className="estadisticas" style={{ marginTop: 16 }}>
-                    <h4>Estadísticas del lote</h4>
-                    <div className="estadisticas-grid">
-                      <div className="stat-item">
-                        <span className="stat-label">Capital final promedio</span>
-                        <span className="stat-value">Bs {fmt(resultados.promedios.capitalFinal)}</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Interés total promedio</span>
-                        <span className="stat-value">Bs {fmt(resultados.promedios.interesTotal)}</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Tasa media aplicada (prom.)</span>
-                        <span className="stat-value">{(resultados.promedios.tasaMediaAplicada * 100).toFixed(2)}%</span>
-                      </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Ingreso promedio por año</span>
-                        <span className="stat-value">Bs {fmt(resultados.promedios.ingresoPromedioPorAnio)}</span>
-                      </div>
+              {resultados && (
+                <div className="estadisticas" style={{ marginTop: 16 }}>
+                  <h4>Estadísticas del lote</h4>
+                  <div className="estadisticas-grid">
+                    <div className="stat-item">
+                      <span className="stat-label">Capital final promedio</span>
+                      <span className="stat-value">Bs {fmt(resultados.promedios.capitalFinal)}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Interés total promedio</span>
+                      <span className="stat-value">Bs {fmt(resultados.promedios.interesTotal)}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Tasa media aplicada (prom.)</span>
+                      <span className="stat-value">{(resultados.promedios.tasaMediaAplicada * 100).toFixed(2)}%</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-label">Ingreso promedio por año</span>
+                      <span className="stat-value">Bs {fmt(resultados.promedios.ingresoPromedioPorAnio)}</span>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </div>
           </section>

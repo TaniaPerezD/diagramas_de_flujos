@@ -408,7 +408,7 @@ export default function Huevos() {
                 <table className="tabla-resultados">
                   <thead>
                     <tr>
-                      <th>Sim</th>
+                      <th>N°</th>
                       <th>Huevos prod.</th>
                       <th>Rotos</th>
                       <th>→ Pollos</th>

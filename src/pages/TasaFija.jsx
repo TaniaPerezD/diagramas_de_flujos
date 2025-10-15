@@ -204,7 +204,7 @@ export default function TasaFija() {
                     <table className="tabla-resultados">
                       <thead>
                         <tr>
-                          <th>Sim</th>
+                          <th>N°</th>
                           <th className="num">Capital inicial</th>
                           <th className="num">Capital final</th>
                           <th className="num">Interés total</th>

@@ -272,7 +272,7 @@ export default function SimulacionEventos() {
                       {tablaSims.length === 0 ? (
                         <tr>
                           <td colSpan="3" className="sin-datos">
-                            Ingresa parámetros y presiona <strong>Simular</strong>
+                            Ejecuta la simulación para ver los resultados
                           </td>
                         </tr>
                       ) : (
