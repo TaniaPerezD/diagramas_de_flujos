@@ -50,6 +50,11 @@ export default function TasaFija() {
     return '';
   }
 
+  function limpiar() {
+    setResultados(null);
+    setError('');
+  }
+
   function simular() {
     const msg = validar();
     if (msg) { setError(msg); setResultados(null); return; }
@@ -74,7 +79,7 @@ export default function TasaFija() {
         capitalInicial: K0,
         Kfinal: r.Kfinal,
         interesTotal: r.interesTotal,
-        ingresoPromDia: r.interesTotal / (anios * 365), // referencia (no estrictamente del apunte)
+        ingresoPromDia: r.interesTotal / (anios), // referencia (no estrictamente del apunte)
       });
 
       sumK += r.Kfinal;
@@ -182,7 +187,12 @@ export default function TasaFija() {
                 )}
               </div>
 
-              <button className="btn-simular" onClick={simular}>Simular</button>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button className="btn-simular" onClick={simular}>Simular</button>
+                <button className="btn-simular btn-secundario" onClick={limpiar}>
+                    Limpiar
+                  </button>
+              </div>
 
               {error && (
                 <div style={{ marginTop: 12, color: '#b00020', fontWeight: 600 }}>
@@ -196,23 +206,27 @@ export default function TasaFija() {
             <div className="card">
               <h3>Resultados</h3>
 
-              {!resultados ? (
-                <div className="sin-datos">Aún no hay datos. Configura y presiona “Simular”.</div>
-              ) : (
-                <>
-                  <div className="tabla-container" style={{ marginTop: 10 }}>
-                    <table className="tabla-resultados">
-                      <thead>
+              <>
+                <div className="tabla-container" style={{ marginTop: 10, maxHeight: '500px', overflowY: 'auto' }}>
+                  <table className="tabla-resultados">
+                    <thead>
+                      <tr>
+                        <th>N°</th>
+                        <th className="num">Capital inicial</th>
+                        <th className="num">Capital final</th>
+                        <th className="num">Interés total</th>
+                        <th className="num">Ingreso prom./año</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {!resultados ? (
                         <tr>
-                          <th>N°</th>
-                          <th className="num">Capital inicial</th>
-                          <th className="num">Capital final</th>
-                          <th className="num">Interés total</th>
-                          <th className="num">Ingreso prom./día</th>
+                          <td colSpan={5} className="sin-datos" style={{ textAlign: 'center' }}>
+                            Ejecuta la simulación para ver los resultados
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {resultados.filas.map((r) => (
+                      ) : (
+                        resultados.filas.map((r) => (
                           <tr key={r.sim}>
                             <td>{r.sim}</td>
                             <td className="num">Bs {formNum(r.capitalInicial)}</td>
@@ -220,11 +234,13 @@ export default function TasaFija() {
                             <td className="num">Bs {formNum(r.interesTotal)}</td>
                             <td className="num">Bs {formNum(r.ingresoPromDia)}</td>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
 
+                {resultados && (
                   <div className="estadisticas" style={{ marginTop: 16 }}>
                     <h4>Estadísticas del lote</h4>
                     <div className="estadisticas-grid">
@@ -242,8 +258,8 @@ export default function TasaFija() {
                       </div>
                     </div>
                   </div>
-                </>
-              )}
+                )}
+              </>
             </div>
           </section>
         </div>
